@@ -9,10 +9,12 @@ sum(is.na(df))
 ## two-way contingency table of categorical outcome and predictors we want to make sure there are no empty cells
 xtabs(~admit + rank, data = df)
 
+str(df)
 #convert rank into factors
 df$rank = factor(df$rank)
+df$admit = factor(df$admit)
 fit3 = glm(admit ~ gre + gpa + rank, data=df,family="binomial")
-summary(fit3)
+summary(fit3) #AIC=alkaline information criterion
 
 #predict probabilities of original values
 (prob=predict(fit3,type=c("response")))
@@ -29,6 +31,7 @@ range(df$gre); range(df$gpa);levels(df$rank)
 str(newdata2)
 newdata2b = cbind(newdata2, predictProb2=predict(fit3, newdata = newdata2, type = "response"))
 newdata2b
+
 
 
 #this way you predict Probabilites 
